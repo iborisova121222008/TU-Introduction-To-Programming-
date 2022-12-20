@@ -7,20 +7,12 @@ from user import User
 class Bank:
     def __init__(self):
         self.users = []
+        self.balance = 0
 
     def find_user(self, egn: str):
         for u in range(len(self.users)):
             if self.users[u].egn == egn:
                 return self.users[u]
-
-    def list_all_accounts_for_user(self, egn):
-        user = self.find_user(egn)
-        # if not user:
-        #     raise UserNotFound()
-        # else:
-        print("Accounts:")
-        for i in range(len(user.accounts)):
-            print(user.accounts[i])
 
     def add_user(self, names, egn):
         found_user = self.find_user(egn)
@@ -30,6 +22,16 @@ class Bank:
 
         user = User(names, egn)
         self.users.append(user)
+
+
+    def list_all_accounts_for_user(self, egn):
+        user = self.find_user(egn)
+        # if not user:
+        #     raise UserNotFound()
+        # else:
+        print("Accounts:")
+        for i in range(len(user.accounts)):
+            print(user.accounts[i])
 
     def add_account(self, egn, currency, type):
         # user exists?
@@ -51,15 +53,16 @@ class Bank:
 
     def deposit(self, amount, egn):
         if not egn:
-            raise InvalidUserData
+            raise InvalidUserData()
 
-        self.balance += amount
+        self.balance += int(amount)
 
     def withdrawal(self, amount, egn):
         if not egn:
-            raise InvalidUserData
+            raise InvalidUserData()
 
         if self.balance >= amount:
             self.balance -= amount
         else:
-            raise InsufficientBalance
+            raise UnsufficientBalance()
+
