@@ -38,10 +38,10 @@ class Menu:
                     print("2. Create an account for an existing user\n")
                     egn = (input("Enter your EGN: "))
                     if len(egn) != 10:
-                        raise InvalidUserData
+                        raise InvalidUserData()
 
-                    currency = input("Enter the currency of the account (e.g. BGN, USD, EUR): ")
-                    type = input("Enter the type of the account (e.g. Credit, Savings, Payment): ")
+                    currency = input("Enter the currency: ")
+                    type = input("Enter the type of the account -> (Credit, Savings, Payment): ")
                     bank.add_account(egn, currency, type)
 
                 elif choice == "3":
@@ -68,7 +68,7 @@ class Menu:
                     print("Goodbye\n")
                     break
                 else:
-                    raise InvalidMenuChoice("Error: Invalid choice")
+                    raise InvalidMenuChoice()
             except Exception as ex:
                 print(f"Error: There was an error while executing the command:\n{str(ex)}")
 
