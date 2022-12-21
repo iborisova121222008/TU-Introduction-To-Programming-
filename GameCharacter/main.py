@@ -95,7 +95,7 @@ class Menu:
 
     def create_item(self):
         character_name = input("Enter character name: ")
-        # character = self.get_character(character_name)
+    
         item = input("Enter item name: ")
         durability = input("Enter durability: ")
         if character_name in self.characters:
@@ -115,13 +115,6 @@ class Menu:
             self.characters.remove(name)
         else:
             raise CharacterDoesNotExists()
-
-    def get_character(self, name):
-        for character in self.characters:
-            if character.name == name:
-                return character
-
-        return None
 
 
 if __name__ == '__main__':
