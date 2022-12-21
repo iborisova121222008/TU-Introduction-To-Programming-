@@ -95,7 +95,7 @@ class Menu:
 
     def create_item(self):
         character_name = input("Enter character name: ")
-    
+
         item = input("Enter item name: ")
         durability = input("Enter durability: ")
         if character_name in self.characters:
@@ -104,14 +104,13 @@ class Menu:
         print(f"Item {item} added to character {character_name}")
 
     def print_characters(self):
-        if self.characters:
-            for character in self.characters:
-                print(character)
+        for character in self.characters:
+            print(character)
 
     def delete_character(self):
         name = input("Enter character name: ")
 
-        if self.characters.__contains__(name):  # item in list
+        if name in self.characters:  # item in list
             self.characters.remove(name)
         else:
             raise CharacterDoesNotExists()
