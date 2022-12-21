@@ -2,11 +2,10 @@ from errors import *
 
 
 class Character:
-    def __init__(self, name, sex, class_in_game, weapon):
+    def __init__(self, name, sex, class_in_game):
         self.name = name
         self.sex = sex
         self.class_in_game = class_in_game
-        self.weapon = weapon
         self.item = []
 
 
