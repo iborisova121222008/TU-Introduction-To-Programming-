@@ -9,7 +9,7 @@ class CharacterExists(Exception):
 
 
 class CharacterDoesNotExists(Exception):
-    def __init__(self, message="Character cannot be deleted", *args: object) -> None:
+    def __init__(self, message="Character cannot be deleted, bc doesnot exsist", *args: object) -> None:
         super().__init__(message, *args)
 
 
