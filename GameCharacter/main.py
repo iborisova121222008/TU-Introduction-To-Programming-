@@ -2,26 +2,28 @@ from errors import *
 
 
 class Character:
-    def __init__(self, name, sex, class_in_game):
+    def __init__(self, name, sex, class_in_game, weapon=None, items=[]):
         self.name = name
         self.sex = sex
         self.class_in_game = class_in_game
-        self.item = []
-
-
-class Weapon:
-    def __init__(self, name, attack):
-        self.name = name
-        self.attack = attack
+        self.weapon = weapon
+        self.item = items
 
 
 class Item:
-    def __init__(self, name, durability=100):
+    def __init__(self, name, durability):
         self.name = name
         self.durability = durability
 
 
+class Weapon(Item):
+    def __init__(self, name, durability, attack):
+        super().__init__(name, durability)
+        self.attack = attack
+
+
 class Menu:
+
     def print_menu(self):
         print("1. Create a new character")
         print("2. Create weapon for an existing character")
@@ -68,7 +70,7 @@ class Menu:
         if len(name) < 4 or not name.isalpha():
             raise InvalidUserData("Invalid name")
 
-        if self.characters.__contains__(name):
+        if name in self.characters:
             for character in self.characters:
                 if character.name == name:
                     return character
@@ -84,16 +86,21 @@ class Menu:
     def create_weapon(self):
         character_name = input("Enter character name: ")
         weapon_name = input("Enter weapon name: ")
+        durability = input("Enter durability: ")
         attack = input("Enter weapon attack: ")
         attack = int(attack)
-        character_name.weapon = Weapon(weapon_name, attack)
+        if character_name in self.characters:
+            character_name.weapon = (Weapon(weapon_name, durability, attack))
         print(f"Weapon {weapon_name} added to character {character_name}")
 
     def create_item(self):
         character_name = input("Enter character name: ")
-        if self.characters.__contains__(character_name):
-            item = input("Enter item name: ")
-        character_name.item.append(Item(item))
+        # character = self.get_character(character_name)
+        item = input("Enter item name: ")
+        durability = input("Enter durability: ")
+        if character_name in self.characters:
+            character_name.items.append(Item(item, durability))
+
         print(f"Item {item} added to character {character_name}")
 
     def print_characters(self):
@@ -103,10 +110,18 @@ class Menu:
 
     def delete_character(self):
         name = input("Enter character name: ")
-        if self.characters.__contains__(name):
+
+        if self.characters.__contains__(name):  # item in list
             self.characters.remove(name)
         else:
             raise CharacterDoesNotExists()
+
+    def get_character(self, name):
+        for character in self.characters:
+            if character.name == name:
+                return character
+
+        return None
 
 
 if __name__ == '__main__':
